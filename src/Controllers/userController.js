@@ -5,10 +5,6 @@ import { createToken } from "../Config/jwtConfig.js";
 const model = new PrismaClient();
 const User = model.nguoi_dung;
 
-export const getUser = (req, res) => {
-  res.send("Get user");
-};
-
 export const signUp = async (req, res) => {
   try {
     const { email, password, fullName, age } = req.body;
