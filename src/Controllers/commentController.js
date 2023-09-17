@@ -5,9 +5,10 @@ const Comment = model.binh_luan;
 
 export const createComment = async (req, res) => {
   try {
-    const { userId, imageId, comment } = req.body;
+    const { imageId, comment } = req.body;
+    const { userId } = req.user;
 
-    if (!userId || !imageId || !comment) {
+    if (!imageId || !comment) {
       res.status(400).send("Invalid information!");
       return;
     }
@@ -21,6 +22,40 @@ export const createComment = async (req, res) => {
 
     const created = await Comment.create({ data });
     res.status(201).send({ isSuccess: true, data: created });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("BE error");
+  }
+};
+
+export const getCommentsByImageId = async (req, res) => {
+  try {
+    const { imageId } = req.params;
+
+    const data = await Comment.findMany({
+      where: {
+        hinh_id: Number.parseInt(imageId),
+      },
+      include: {
+        nguoi_dung: {
+          select: {
+            email: true,
+            ho_ten: true,
+            tuoi: true,
+            anh_dai_dien: true,
+          },
+        },
+        hinh_anh: {
+          select: {
+            ten_hinh: true,
+            duong_dan: true,
+            mo_ta: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).send(data);
   } catch (e) {
     console.log(e);
     res.status(500).send("BE error");

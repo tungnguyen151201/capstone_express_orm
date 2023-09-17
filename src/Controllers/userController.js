@@ -57,8 +57,8 @@ export const signIn = async (req, res) => {
     }
 
     const token = createToken({
+      userId: checkEmail.nguoi_dung_id,
       email: checkEmail.email,
-      fullName: checkEmail.ho_ten,
     });
 
     res.status(200).send(token);
