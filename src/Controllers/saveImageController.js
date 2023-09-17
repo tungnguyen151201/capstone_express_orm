@@ -63,3 +63,22 @@ export const handleSaveImage = async (req, res) => {
     res.status(500).send("BE error");
   }
 };
+
+export const getSaveImages = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const data = await SaveImage.findMany({
+      where: {
+        nguoi_dung_id: userId,
+      },
+      include: {
+        hinh_anh: true,
+      },
+    });
+
+    res.send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("BE error");
+  }
+};

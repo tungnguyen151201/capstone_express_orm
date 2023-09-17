@@ -63,3 +63,35 @@ export const getImageDetail = async (req, res) => {
     res.status(500).send("BE error");
   }
 };
+
+export const getImagesByUserId = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const data = await Image.findMany({
+      where: {
+        nguoi_dung_id: userId,
+      },
+    });
+
+    res.send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("BE error");
+  }
+};
+
+export const deleteImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Image.delete({
+      where: {
+        hinh_id: Number.parseInt(id),
+      },
+    });
+
+    res.send("Delete successful!");
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("BE error");
+  }
+};

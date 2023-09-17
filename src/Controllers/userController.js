@@ -67,3 +67,25 @@ export const signIn = async (req, res) => {
     res.status(500).send("BE error");
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const data = await User.findUnique({
+      select: {
+        email: true,
+        ho_ten: true,
+        tuoi: true,
+        anh_dai_dien: true,
+      },
+      where: {
+        nguoi_dung_id: userId,
+      },
+    });
+
+    res.send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("BE error");
+  }
+};
