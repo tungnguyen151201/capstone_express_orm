@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 const model = new PrismaClient();
 const Image = model.hinh_anh;
@@ -10,7 +10,7 @@ export const getAllImages = async (req, res) => {
     res.status(200).send(data);
   } catch (e) {
     console.log(e);
-    res.status(500).send("BE error");
+    res.status(500).send('BE error');
   }
 };
 
@@ -33,7 +33,7 @@ export const searchImages = async (req, res) => {
     res.status(200).send(data);
   } catch (e) {
     console.log(e);
-    res.status(500).send("BE error");
+    res.status(500).send('BE error');
   }
 };
 
@@ -60,7 +60,7 @@ export const getImageDetail = async (req, res) => {
     res.status(200).send(data);
   } catch (e) {
     console.log(e);
-    res.status(500).send("BE error");
+    res.status(500).send('BE error');
   }
 };
 
@@ -76,7 +76,7 @@ export const getImagesByUserId = async (req, res) => {
     res.send(data);
   } catch (e) {
     console.log(e);
-    res.status(500).send("BE error");
+    res.status(500).send('BE error');
   }
 };
 
@@ -89,9 +89,35 @@ export const deleteImage = async (req, res) => {
       },
     });
 
-    res.send("Delete successful!");
+    res.send('Delete successful!');
   } catch (e) {
     console.log(e);
-    res.status(500).send("BE error");
+    res.status(500).send('BE error');
+  }
+};
+
+export const uploadImage = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    if (!title || !description) {
+      res.status(400).send('Invalid information!');
+      return;
+    }
+
+    await Image.create({
+      data: {
+        ten_hinh: title,
+        mo_ta: description,
+        duong_dan: req.file.path,
+        nguoi_dung_id: req.user.userId,
+      },
+    });
+    res.send({
+      message: 'Uploaded success!',
+      path: req.file.path,
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('BE error');
   }
 };

@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 const key = process.env.SECRET_KEY;
 
 export const createToken = (data) => {
-  return jwt.sign({ data }, key, { expiresIn: "5m" });
+  return jwt.sign({ data }, key, { expiresIn: '5m' });
 };
 
 export const verifyToken = (token) => {
