@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "24fce36d-faa4-4a1d-8b01-cc75bd7d68b9",
+		"name": "capstone_express_orm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18254155"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "user/sign-up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test123@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"fullName\": \"Test 123\",\r\n    \"age\": 22\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/sign-up",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/sign-in",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"token\", responseBody);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/sign-in",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "user/get-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/get-user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"get-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user/edit-profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/TUNG/Images/avt_meo.jpg"
+								},
+								{
+									"key": "fullName",
+									"value": "Tung Nguyen",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "18",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/user/edit-profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"edit-profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "image",
+			"item": [
+				{
+					"name": "image/get-all-images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/image/get-all-images",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"image",
+								"get-all-images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image/search-images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/image/search-images?keyword=image",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"image",
+								"search-images"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "image"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image/get-image-detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/image/get-image-detail/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"image",
+								"get-image-detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image/get-images-by-user-id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/image/get-images-by-user-id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"image",
+								"get-images-by-user-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image/upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/TUNG/Images/pinterest.jpg"
+								},
+								{
+									"key": "title",
+									"value": "Test upload",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "test upload",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/image/upload",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/image/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"image",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "comment/create-comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imageId\": 1,\r\n    \"comment\": \"So beautiful!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/comment/create-comment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"comment",
+								"create-comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comment/get-comments-by-image-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/comment/get-comments-by-image-id/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"comment",
+								"get-comments-by-image-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "save-image",
+			"item": [
+				{
+					"name": "save-image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imageId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/save-image",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"save-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save-image/check-save-image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/save-image/check-save-image/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"save-image",
+								"check-save-image",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save-image/get-save-images",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/save-image/get-save-images",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"save-image",
+								"get-save-images"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -104,6 +104,11 @@ export const uploadImage = async (req, res) => {
       return;
     }
 
+    if (!req.file) {
+      res.status(400).send('File empty!');
+      return;
+    }
+
     await Image.create({
       data: {
         ten_hinh: title,
